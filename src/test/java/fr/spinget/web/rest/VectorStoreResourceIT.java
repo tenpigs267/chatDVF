@@ -15,6 +15,7 @@ import fr.spinget.repository.VectorStoreRepository;
 import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Map;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,8 +37,8 @@ class VectorStoreResourceIT {
     private static final String DEFAULT_CONTENT = "AAAAAAAAAA";
     private static final String UPDATED_CONTENT = "BBBBBBBBBB";
 
-    private static final String DEFAULT_METADATA = "AAAAAAAAAA";
-    private static final String UPDATED_METADATA = "BBBBBBBBBB";
+    private static final Map<Object, Object> DEFAULT_METADATA = Map.of("AAAAAAAAAA", "BBBBBBBBBB");
+    private static final Map<Object, Object> UPDATED_METADATA = Map.of("CCCCCCCCCC", "DDDDDDDDDD");
 
     private static final String DEFAULT_COMMUNE = "AAAAAAAAAA";
     private static final String UPDATED_COMMUNE = "BBBBBBBBBB";

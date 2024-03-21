@@ -17,7 +17,7 @@
             <column name="content" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="metadata" type="${clobType}">
+            <column name="metadata" type="JSON">
                 <constraints nullable="true" />
             </column>
             <column name="commune" type="varchar(255)">
@@ -52,6 +52,12 @@
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
+        <sql>
+            ALTER TABLE vector_store
+                ADD COLUMN embedding vector(1536);
+
+            CREATE INDEX ON embedding USING hnsw (embedding vector_cosine_ops);
+        </sql>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->

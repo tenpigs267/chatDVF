@@ -3,7 +3,11 @@ package fr.spinget.domain;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.UUID;
+import org.hibernate.annotations.Array;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 /**
  * A VectorStore.
@@ -23,9 +27,14 @@ public class VectorStore implements Serializable {
     @Column(name = "content")
     private String content;
 
-    @Lob
+    @Column(name = "embedding")
+    @JdbcTypeCode(SqlTypes.VECTOR)
+    @Array(length = 1536) // dimensions
+    private float[] embedding;
+
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "metadata")
-    private String metadata;
+    private Map<Object, Object> metadata;
 
     @Column(name = "commune")
     private String commune;
@@ -85,16 +94,29 @@ public class VectorStore implements Serializable {
         this.content = content;
     }
 
-    public String getMetadata() {
-        return this.metadata;
+    public float[] getEmbedding() {
+        return embedding;
     }
 
-    public VectorStore metadata(String metadata) {
+    public VectorStore embedding(float[] embedding) {
+        this.setEmbedding(embedding);
+        return this;
+    }
+
+    public void setEmbedding(float[] embedding) {
+        this.embedding = embedding;
+    }
+
+    public Map<Object, Object> getMetadata() {
+        return metadata;
+    }
+
+    public VectorStore metadata(Map<Object, Object> metadata) {
         this.setMetadata(metadata);
         return this;
     }
 
-    public void setMetadata(String metadata) {
+    public void setMetadata(Map<Object, Object> metadata) {
         this.metadata = metadata;
     }
 
