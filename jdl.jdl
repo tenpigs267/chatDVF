@@ -1,0 +1,21 @@
+
+entity VectorStore {
+    id UUID,
+    content String,
+    metadat Json,
+	commune String,
+    codePostal Integer,
+    departement String,
+    codeDepartement Integer,
+    typeLocal String,
+    superficieCarrez Integer,
+    superficieTerrain Integer,
+    nbPieces Integer,
+    valeur Float,
+}
+
+// Set service options to all except few
+service all with serviceImpl 
+
+// Set an angular suffix
+ angularSuffix * with dvf
