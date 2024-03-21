@@ -2,7 +2,7 @@
 entity VectorStore {
     id UUID,
     content String,
-    metadat Json,
+    metadata TextBlob,
 	commune String,
     codePostal Integer,
     departement String,
@@ -11,6 +11,7 @@ entity VectorStore {
     superficieCarrez Integer,
     superficieTerrain Integer,
     nbPieces Integer,
+	dateVente LocalDate,
     valeur Float,
 }
 

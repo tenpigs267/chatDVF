@@ -1,0 +1,78 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (vectorStore) {
+      <div>
+        <h2 data-cy="vectorStoreDetailsHeading"><span>Vector Store</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>Id</span></dt>
+          <dd>
+            <span>{{ vectorStore.id }}</span>
+          </dd>
+          <dt><span>Content</span></dt>
+          <dd>
+            <span>{{ vectorStore.content }}</span>
+          </dd>
+          <dt><span>Metadata</span></dt>
+          <dd>
+            <span>{{ vectorStore.metadata }}</span>
+          </dd>
+          <dt><span>Commune</span></dt>
+          <dd>
+            <span>{{ vectorStore.commune }}</span>
+          </dd>
+          <dt><span>Code Postal</span></dt>
+          <dd>
+            <span>{{ vectorStore.codePostal }}</span>
+          </dd>
+          <dt><span>Departement</span></dt>
+          <dd>
+            <span>{{ vectorStore.departement }}</span>
+          </dd>
+          <dt><span>Code Departement</span></dt>
+          <dd>
+            <span>{{ vectorStore.codeDepartement }}</span>
+          </dd>
+          <dt><span>Type Local</span></dt>
+          <dd>
+            <span>{{ vectorStore.typeLocal }}</span>
+          </dd>
+          <dt><span>Superficie Carrez</span></dt>
+          <dd>
+            <span>{{ vectorStore.superficieCarrez }}</span>
+          </dd>
+          <dt><span>Superficie Terrain</span></dt>
+          <dd>
+            <span>{{ vectorStore.superficieTerrain }}</span>
+          </dd>
+          <dt><span>Nb Pieces</span></dt>
+          <dd>
+            <span>{{ vectorStore.nbPieces }}</span>
+          </dd>
+          <dt><span>Date Vente</span></dt>
+          <dd>
+            <span>{{ vectorStore.dateVente | formatMediumDate }}</span>
+          </dd>
+          <dt><span>Valeur</span></dt>
+          <dd>
+            <span>{{ vectorStore.valeur }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/vector-store-dvf', vectorStore.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

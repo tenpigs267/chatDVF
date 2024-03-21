@@ -1,0 +1,66 @@
+{
+  "angularJSSuffix": "dvf",
+  "annotations": {
+    "changelogDate": "20240321203656"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "content",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "metadata",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "commune",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codePostal",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "departement",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codeDepartement",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "typeLocal",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "superficieCarrez",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "superficieTerrain",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "nbPieces",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "dateVente",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "valeur",
+      "fieldType": "Float"
+    }
+  ],
+  "name": "VectorStore",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

@@ -1,0 +1,141 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-vector-store-dvf-heading" data-cy="VectorStoreCreateUpdateHeading">Créer ou éditer un Vector Store</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">Id</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_content">Content</label>
+          <input type="text" class="form-control" name="content" id="field_content" data-cy="content" formControlName="content" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_metadata">Metadata</label>
+          <textarea class="form-control" name="metadata" id="field_metadata" data-cy="metadata" formControlName="metadata"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_commune">Commune</label>
+          <input type="text" class="form-control" name="commune" id="field_commune" data-cy="commune" formControlName="commune" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_codePostal">Code Postal</label>
+          <input
+            type="number"
+            class="form-control"
+            name="codePostal"
+            id="field_codePostal"
+            data-cy="codePostal"
+            formControlName="codePostal"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_departement">Departement</label>
+          <input
+            type="text"
+            class="form-control"
+            name="departement"
+            id="field_departement"
+            data-cy="departement"
+            formControlName="departement"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_codeDepartement">Code Departement</label>
+          <input
+            type="number"
+            class="form-control"
+            name="codeDepartement"
+            id="field_codeDepartement"
+            data-cy="codeDepartement"
+            formControlName="codeDepartement"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_typeLocal">Type Local</label>
+          <input type="text" class="form-control" name="typeLocal" id="field_typeLocal" data-cy="typeLocal" formControlName="typeLocal" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_superficieCarrez">Superficie Carrez</label>
+          <input
+            type="number"
+            class="form-control"
+            name="superficieCarrez"
+            id="field_superficieCarrez"
+            data-cy="superficieCarrez"
+            formControlName="superficieCarrez"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_superficieTerrain">Superficie Terrain</label>
+          <input
+            type="number"
+            class="form-control"
+            name="superficieTerrain"
+            id="field_superficieTerrain"
+            data-cy="superficieTerrain"
+            formControlName="superficieTerrain"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_nbPieces">Nb Pieces</label>
+          <input type="number" class="form-control" name="nbPieces" id="field_nbPieces" data-cy="nbPieces" formControlName="nbPieces" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dateVente">Date Vente</label>
+          <div class="input-group">
+            <input
+              id="field_dateVente"
+              data-cy="dateVente"
+              type="text"
+              class="form-control"
+              name="dateVente"
+              ngbDatepicker
+              #dateVenteDp="ngbDatepicker"
+              formControlName="dateVente"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateVenteDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_valeur">Valeur</label>
+          <input type="number" class="form-control" name="valeur" id="field_valeur" data-cy="valeur" formControlName="valeur" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

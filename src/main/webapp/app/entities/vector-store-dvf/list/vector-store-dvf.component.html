@@ -1,0 +1,174 @@
+<div>
+  <h2 id="page-heading" data-cy="VectorStoreHeading">
+    <span>VectorStores</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-vector-store-dvf"
+        [routerLink]="['/vector-store-dvf/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span>Créer un nouveau Vector Store</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (vectorStores?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span>Aucun Vector Store trouvé</span>
+    </div>
+  }
+
+  @if (vectorStores && vectorStores.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span>Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="content">
+              <div class="d-flex">
+                <span>Content</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="metadata">
+              <div class="d-flex">
+                <span>Metadata</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="commune">
+              <div class="d-flex">
+                <span>Commune</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="codePostal">
+              <div class="d-flex">
+                <span>Code Postal</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="departement">
+              <div class="d-flex">
+                <span>Departement</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="codeDepartement">
+              <div class="d-flex">
+                <span>Code Departement</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="typeLocal">
+              <div class="d-flex">
+                <span>Type Local</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="superficieCarrez">
+              <div class="d-flex">
+                <span>Superficie Carrez</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="superficieTerrain">
+              <div class="d-flex">
+                <span>Superficie Terrain</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="nbPieces">
+              <div class="d-flex">
+                <span>Nb Pieces</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dateVente">
+              <div class="d-flex">
+                <span>Date Vente</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="valeur">
+              <div class="d-flex">
+                <span>Valeur</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (vectorStore of vectorStores; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/vector-store-dvf', vectorStore.id, 'view']">{{ vectorStore.id }}</a>
+              </td>
+              <td>{{ vectorStore.content }}</td>
+              <td>{{ vectorStore.metadata }}</td>
+              <td>{{ vectorStore.commune }}</td>
+              <td>{{ vectorStore.codePostal }}</td>
+              <td>{{ vectorStore.departement }}</td>
+              <td>{{ vectorStore.codeDepartement }}</td>
+              <td>{{ vectorStore.typeLocal }}</td>
+              <td>{{ vectorStore.superficieCarrez }}</td>
+              <td>{{ vectorStore.superficieTerrain }}</td>
+              <td>{{ vectorStore.nbPieces }}</td>
+              <td>{{ vectorStore.dateVente | formatMediumDate }}</td>
+              <td>{{ vectorStore.valeur }}</td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/vector-store-dvf', vectorStore.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline">Voir</span>
+                  </a>
+
+                  <a [routerLink]="['/vector-store-dvf', vectorStore.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline">Editer</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(vectorStore)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
