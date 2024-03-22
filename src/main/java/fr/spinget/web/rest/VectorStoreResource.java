@@ -3,6 +3,8 @@ package fr.spinget.web.rest;
 import fr.spinget.domain.VectorStore;
 import fr.spinget.repository.VectorStoreRepository;
 import fr.spinget.service.VectorStoreService;
+import fr.spinget.service.dto.DeepChatRequestBodyDTO;
+import fr.spinget.service.dto.DeepChatTextResponseDTO;
 import fr.spinget.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -63,7 +65,7 @@ public class VectorStoreResource {
     /**
      * {@code PUT  /vector-stores/:id} : Updates an existing vectorStore.
      *
-     * @param id the id of the vectorStore to save.
+     * @param id          the id of the vectorStore to save.
      * @param vectorStore the vectorStore to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated vectorStore,
      * or with status {@code 400 (Bad Request)} if the vectorStore is not valid,
@@ -96,7 +98,7 @@ public class VectorStoreResource {
     /**
      * {@code PATCH  /vector-stores/:id} : Partial updates given fields of an existing vectorStore, field will ignore if it is null
      *
-     * @param id the id of the vectorStore to save.
+     * @param id          the id of the vectorStore to save.
      * @param vectorStore the vectorStore to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated vectorStore,
      * or with status {@code 400 (Bad Request)} if the vectorStore is not valid,
@@ -166,5 +168,10 @@ public class VectorStoreResource {
         return ResponseEntity.noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @PostMapping("/chatdvf")
+    public DeepChatTextResponseDTO chatDVF(@RequestBody DeepChatRequestBodyDTO requestBody) {
+        return this.vectorStoreService.chat(requestBody);
     }
 }

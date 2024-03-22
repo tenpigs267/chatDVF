@@ -1,6 +1,8 @@
 package fr.spinget.service;
 
 import fr.spinget.domain.VectorStore;
+import fr.spinget.service.dto.DeepChatRequestBodyDTO;
+import fr.spinget.service.dto.DeepChatTextResponseDTO;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -54,4 +56,6 @@ public interface VectorStoreService {
      * @param id the id of the entity.
      */
     void delete(UUID id);
+
+    DeepChatTextResponseDTO chat(DeepChatRequestBodyDTO deepChatRequestBodyDTO);
 }
