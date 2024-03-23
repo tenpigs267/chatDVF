@@ -15,11 +15,10 @@ public class VectorStoreTestSamples {
             .content("content1")
             .commune("commune1")
             .codePostal(1)
-            .departement("departement1")
             .codeDepartement(1)
             .typeLocal("typeLocal1")
-            .superficieCarrez(1)
-            .superficieTerrain(1)
+            .superficieCarrez(1.1f)
+            .superficieTerrain(1.2f)
             .nbPieces(1);
     }
 
@@ -29,11 +28,10 @@ public class VectorStoreTestSamples {
             .content("content2")
             .commune("commune2")
             .codePostal(2)
-            .departement("departement2")
             .codeDepartement(2)
             .typeLocal("typeLocal2")
-            .superficieCarrez(2)
-            .superficieTerrain(2)
+            .superficieCarrez(2.1f)
+            .superficieTerrain(2.2f)
             .nbPieces(2);
     }
 
@@ -43,11 +41,10 @@ public class VectorStoreTestSamples {
             .content(UUID.randomUUID().toString())
             .commune(UUID.randomUUID().toString())
             .codePostal(intCount.incrementAndGet())
-            .departement(UUID.randomUUID().toString())
             .codeDepartement(intCount.incrementAndGet())
             .typeLocal(UUID.randomUUID().toString())
-            .superficieCarrez(intCount.incrementAndGet())
-            .superficieTerrain(intCount.incrementAndGet())
+            .superficieCarrez((float) intCount.incrementAndGet())
+            .superficieTerrain((float) intCount.incrementAndGet())
             .nbPieces(intCount.incrementAndGet());
     }
 }

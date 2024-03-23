@@ -26,25 +26,19 @@
             <column name="code_postal" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="departement" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
             <column name="code_departement" type="integer">
                 <constraints nullable="true" />
             </column>
             <column name="type_local" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="superficie_carrez" type="integer">
+            <column name="superficie_carrez" type="${floatType}">
                 <constraints nullable="true" />
             </column>
-            <column name="superficie_terrain" type="integer">
+            <column name="superficie_terrain" type="${floatType}">
                 <constraints nullable="true" />
             </column>
             <column name="nb_pieces" type="integer">
-                <constraints nullable="true" />
-            </column>
-            <column name="date_vente" type="date">
                 <constraints nullable="true" />
             </column>
             <column name="valeur" type="${floatType}">
@@ -56,7 +50,7 @@
             ALTER TABLE vector_store
                 ADD COLUMN embedding vector(1536);
 
-            CREATE INDEX ON embedding USING hnsw (embedding vector_cosine_ops);
+            CREATE INDEX ON vector_store USING hnsw (embedding vector_cosine_ops);
         </sql>
     </changeSet>
 
@@ -78,7 +72,7 @@
                   usePreparedStatements="true">
             <column name="id" type="${uuidType}"/>
             <column name="content" type="string"/>
-            <column name="metadata" type="clob"/>
+            <column name="metadata" type="JSON"/>
             <column name="commune" type="string"/>
             <column name="code_postal" type="numeric"/>
             <column name="departement" type="string"/>

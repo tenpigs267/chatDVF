@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -231,6 +232,11 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-vector</artifactId>
+            <version>6.4.4.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
             <scope>provided</scope>
         </dependency>
@@ -280,6 +286,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.30</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-csv</artifactId>
+            <version>2.17.0</version> <!-- Utilisez la dernière version disponible -->
         </dependency>
 
         <dependency>
@@ -581,11 +592,15 @@
                     <configuration>
                         <rules>
                             <requireMavenVersion>
-                                <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
+                                <message>You are running an older version of Maven. JHipster requires at least Maven
+                                    ${maven.version}
+                                </message>
                                 <version>[${maven.version},)</version>
                             </requireMavenVersion>
                             <requireJavaVersion>
-                                <message>You are running an incompatible version of Java. JHipster supports JDK 17 to 21.</message>
+                                <message>You are running an incompatible version of Java. JHipster supports JDK 17 to
+                                    21.
+                                </message>
                                 <version>[17,18),[18,19),[19,20),[20,21),[21,22)</version>
                             </requireJavaVersion>
                         </rules>
@@ -682,7 +697,8 @@
                             <exclude>**/*IntTest*</exclude>
                         </excludes>
                         <systemPropertyVariables>
-                            <java.util.logging.config.file>src/test/resources/logback.xml</java.util.logging.config.file>
+                            <java.util.logging.config.file>src/test/resources/logback.xml
+                            </java.util.logging.config.file>
                         </systemPropertyVariables>
                     </configuration>
                 </plugin>
@@ -789,7 +805,9 @@
                     <version>${liquibase.version}</version>
                     <configuration>
                         <changeLogFile>config/liquibase/master.xml</changeLogFile>
-                        <diffChangeLogFile>${project.basedir}/src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
+                        <diffChangeLogFile>
+                            ${project.basedir}/src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml
+                        </diffChangeLogFile>
                         <driver>org.postgresql.Driver</driver>
                         <url>${liquibase-plugin.url}</url>
                         <defaultSchemaName/>
@@ -948,7 +966,8 @@
             <id>prod</id>
             <properties>
                 <!-- default Spring profiles -->
-                <spring.profiles.active>prod${profile.api-docs}${profile.tls}${profile.e2e}${profile.no-liquibase}</spring.profiles.active>
+                <spring.profiles.active>prod${profile.api-docs}${profile.tls}${profile.e2e}${profile.no-liquibase}
+                </spring.profiles.active>
                 <profile.test>testprod</profile.test>
                 <liquibase-plugin.url>jdbc:postgresql://localhost:5432/chatDvf</liquibase-plugin.url>
                 <liquibase-plugin.username>chatDvf</liquibase-plugin.username>
@@ -1120,8 +1139,10 @@
                                         <condition property="skip.npm" value="true" else="false">
                                             <and>
                                                 <available file="checksums.csv" filepath="${project.build.directory}"/>
-                                                <available file="checksums.csv.old" filepath="${project.build.directory}"/>
-                                                <filesmatch file1="${project.build.directory}/checksums.csv" file2="${project.build.directory}/checksums.csv.old"/>
+                                                <available file="checksums.csv.old"
+                                                           filepath="${project.build.directory}"/>
+                                                <filesmatch file1="${project.build.directory}/checksums.csv"
+                                                            file2="${project.build.directory}/checksums.csv.old"/>
                                             </and>
                                         </condition>
                                     </target>

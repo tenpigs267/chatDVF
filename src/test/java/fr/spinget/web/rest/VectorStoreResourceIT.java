@@ -47,7 +47,6 @@ class VectorStoreResourceIT {
     private static final Integer UPDATED_CODE_POSTAL = 2;
 
     private static final String DEFAULT_DEPARTEMENT = "AAAAAAAAAA";
-    private static final String UPDATED_DEPARTEMENT = "BBBBBBBBBB";
 
     private static final Integer DEFAULT_CODE_DEPARTEMENT = 1;
     private static final Integer UPDATED_CODE_DEPARTEMENT = 2;
@@ -55,17 +54,16 @@ class VectorStoreResourceIT {
     private static final String DEFAULT_TYPE_LOCAL = "AAAAAAAAAA";
     private static final String UPDATED_TYPE_LOCAL = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_SUPERFICIE_CARREZ = 1;
-    private static final Integer UPDATED_SUPERFICIE_CARREZ = 2;
+    private static final float DEFAULT_SUPERFICIE_CARREZ = 1.1f;
+    private static final float UPDATED_SUPERFICIE_CARREZ = 2.2f;
 
-    private static final Integer DEFAULT_SUPERFICIE_TERRAIN = 1;
-    private static final Integer UPDATED_SUPERFICIE_TERRAIN = 2;
+    private static final float DEFAULT_SUPERFICIE_TERRAIN = 1.1f;
+    private static final float UPDATED_SUPERFICIE_TERRAIN = 2.2f;
 
     private static final Integer DEFAULT_NB_PIECES = 1;
     private static final Integer UPDATED_NB_PIECES = 2;
 
     private static final LocalDate DEFAULT_DATE_VENTE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATE_VENTE = LocalDate.now(ZoneId.systemDefault());
 
     private static final Float DEFAULT_VALEUR = 1F;
     private static final Float UPDATED_VALEUR = 2F;
@@ -99,13 +97,11 @@ class VectorStoreResourceIT {
             .metadata(DEFAULT_METADATA)
             .commune(DEFAULT_COMMUNE)
             .codePostal(DEFAULT_CODE_POSTAL)
-            .departement(DEFAULT_DEPARTEMENT)
             .codeDepartement(DEFAULT_CODE_DEPARTEMENT)
             .typeLocal(DEFAULT_TYPE_LOCAL)
             .superficieCarrez(DEFAULT_SUPERFICIE_CARREZ)
             .superficieTerrain(DEFAULT_SUPERFICIE_TERRAIN)
             .nbPieces(DEFAULT_NB_PIECES)
-            .dateVente(DEFAULT_DATE_VENTE)
             .valeur(DEFAULT_VALEUR);
         return vectorStore;
     }
@@ -122,13 +118,11 @@ class VectorStoreResourceIT {
             .metadata(UPDATED_METADATA)
             .commune(UPDATED_COMMUNE)
             .codePostal(UPDATED_CODE_POSTAL)
-            .departement(UPDATED_DEPARTEMENT)
             .codeDepartement(UPDATED_CODE_DEPARTEMENT)
             .typeLocal(UPDATED_TYPE_LOCAL)
             .superficieCarrez(UPDATED_SUPERFICIE_CARREZ)
             .superficieTerrain(UPDATED_SUPERFICIE_TERRAIN)
             .nbPieces(UPDATED_NB_PIECES)
-            .dateVente(UPDATED_DATE_VENTE)
             .valeur(UPDATED_VALEUR);
         return vectorStore;
     }
@@ -253,13 +247,11 @@ class VectorStoreResourceIT {
             .metadata(UPDATED_METADATA)
             .commune(UPDATED_COMMUNE)
             .codePostal(UPDATED_CODE_POSTAL)
-            .departement(UPDATED_DEPARTEMENT)
             .codeDepartement(UPDATED_CODE_DEPARTEMENT)
             .typeLocal(UPDATED_TYPE_LOCAL)
             .superficieCarrez(UPDATED_SUPERFICIE_CARREZ)
             .superficieTerrain(UPDATED_SUPERFICIE_TERRAIN)
             .nbPieces(UPDATED_NB_PIECES)
-            .dateVente(UPDATED_DATE_VENTE)
             .valeur(UPDATED_VALEUR);
 
         restVectorStoreMockMvc
@@ -346,11 +338,9 @@ class VectorStoreResourceIT {
         partialUpdatedVectorStore
             .metadata(UPDATED_METADATA)
             .codePostal(UPDATED_CODE_POSTAL)
-            .departement(UPDATED_DEPARTEMENT)
             .codeDepartement(UPDATED_CODE_DEPARTEMENT)
             .typeLocal(UPDATED_TYPE_LOCAL)
-            .superficieTerrain(UPDATED_SUPERFICIE_TERRAIN)
-            .dateVente(UPDATED_DATE_VENTE);
+            .superficieTerrain(UPDATED_SUPERFICIE_TERRAIN);
 
         restVectorStoreMockMvc
             .perform(
@@ -387,13 +377,11 @@ class VectorStoreResourceIT {
             .metadata(UPDATED_METADATA)
             .commune(UPDATED_COMMUNE)
             .codePostal(UPDATED_CODE_POSTAL)
-            .departement(UPDATED_DEPARTEMENT)
             .codeDepartement(UPDATED_CODE_DEPARTEMENT)
             .typeLocal(UPDATED_TYPE_LOCAL)
             .superficieCarrez(UPDATED_SUPERFICIE_CARREZ)
             .superficieTerrain(UPDATED_SUPERFICIE_TERRAIN)
             .nbPieces(UPDATED_NB_PIECES)
-            .dateVente(UPDATED_DATE_VENTE)
             .valeur(UPDATED_VALEUR);
 
         restVectorStoreMockMvc

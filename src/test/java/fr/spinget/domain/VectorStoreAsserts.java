@@ -51,13 +51,11 @@ public class VectorStoreAsserts {
             .satisfies(e -> assertThat(e.getMetadata()).as("check metadata").isEqualTo(actual.getMetadata()))
             .satisfies(e -> assertThat(e.getCommune()).as("check commune").isEqualTo(actual.getCommune()))
             .satisfies(e -> assertThat(e.getCodePostal()).as("check codePostal").isEqualTo(actual.getCodePostal()))
-            .satisfies(e -> assertThat(e.getDepartement()).as("check departement").isEqualTo(actual.getDepartement()))
             .satisfies(e -> assertThat(e.getCodeDepartement()).as("check codeDepartement").isEqualTo(actual.getCodeDepartement()))
             .satisfies(e -> assertThat(e.getTypeLocal()).as("check typeLocal").isEqualTo(actual.getTypeLocal()))
             .satisfies(e -> assertThat(e.getSuperficieCarrez()).as("check superficieCarrez").isEqualTo(actual.getSuperficieCarrez()))
             .satisfies(e -> assertThat(e.getSuperficieTerrain()).as("check superficieTerrain").isEqualTo(actual.getSuperficieTerrain()))
             .satisfies(e -> assertThat(e.getNbPieces()).as("check nbPieces").isEqualTo(actual.getNbPieces()))
-            .satisfies(e -> assertThat(e.getDateVente()).as("check dateVente").isEqualTo(actual.getDateVente()))
             .satisfies(e -> assertThat(e.getValeur()).as("check valeur").isEqualTo(actual.getValeur()));
     }
 

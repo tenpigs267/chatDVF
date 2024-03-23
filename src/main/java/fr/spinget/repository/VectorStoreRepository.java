@@ -17,9 +17,9 @@ public interface VectorStoreRepository extends JpaRepository<VectorStore, UUID> 
     @Query("SELECT AVG(e.valeur/e.superficieCarrez) FROM VectorStore e WHERE e.codePostal = ?1")
     public Float prixMoyenAuM2PourCodePostal(Integer codePostal);
 
-    @Query("SELECT AVG(e.valeur/e.superficieCarrez) FROM VectorStore e WHERE e.departement = ?1")
-    public Float prixMoyenAuM2PourDepartement(String departement);
+    @Query("SELECT AVG(e.valeur/e.superficieCarrez) FROM VectorStore e WHERE e.codeDepartement = ?1")
+    public Float prixMoyenAuM2PourDepartement(Integer departement);
 
-    @Query("SELECT AVG(e.valeur/e.superficieCarrez) FROM VectorStore e GROUP BY e.departement")
+    @Query("SELECT AVG(e.valeur/e.superficieCarrez) FROM VectorStore e GROUP BY e.codeDepartement")
     public Float prixMoyenAuM2ParDepartement();
 }

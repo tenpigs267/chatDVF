@@ -1,7 +1,6 @@
 package fr.spinget.config;
 
 import fr.spinget.repository.VectorStoreRepository;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import org.springframework.ai.chat.ChatClient;
@@ -68,9 +67,9 @@ public class AIConfig {
     }
 
     @Bean
-    @Description("Pour connaitre le prix au m² dans un département")
-    public Function<String, Float> prixPourDepartement() {
-        return commune -> vectorStoreRepository.prixMoyenAuM2PourDepartement(commune);
+    @Description("Pour connaitre le prix au m² dans un département désigné par son code")
+    public Function<Integer, Float> prixPourDepartement() {
+        return codeDepartement -> vectorStoreRepository.prixMoyenAuM2PourDepartement(codeDepartement);
     }
 
     @Bean

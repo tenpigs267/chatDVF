@@ -1,11 +1,22 @@
 package fr.spinget.service.impl;
 
+import static org.springframework.ai.embedding.EmbeddingOptions.EMPTY;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.MappingIterator;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import fr.spinget.domain.ValeurFonciere;
 import fr.spinget.domain.VectorStore;
 import fr.spinget.repository.VectorStoreRepository;
 import fr.spinget.service.VectorStoreService;
 import fr.spinget.service.ai.QueryCompressingService;
 import fr.spinget.service.dto.DeepChatRequestBodyDTO;
 import fr.spinget.service.dto.DeepChatTextResponseDTO;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,10 +25,12 @@ import org.springframework.ai.chat.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.document.Document;
+import org.springframework.ai.embedding.EmbeddingClient;
+import org.springframework.ai.embedding.EmbeddingOptions;
+import org.springframework.ai.embedding.EmbeddingRequest;
+import org.springframework.ai.embedding.EmbeddingResponse;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.ai.vectorstore.SearchRequest;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +46,9 @@ public class VectorStoreServiceImpl implements VectorStoreService {
     private final VectorStoreRepository vectorStoreRepository;
     private final org.springframework.ai.vectorstore.VectorStore vectorStore;
     private final ChatClient chatClient;
+    private final EmbeddingClient embeddingClient;
     private final QueryCompressingService queryCompressingService;
+    private final ObjectMapper objectMapper;
 
     private String ragPromptTemplate =
         """
@@ -54,12 +69,16 @@ public class VectorStoreServiceImpl implements VectorStoreService {
         VectorStoreRepository vectorStoreRepository,
         org.springframework.ai.vectorstore.VectorStore vectorStore,
         ChatClient chatClient,
-        QueryCompressingService queryCompressingService
+        EmbeddingClient embeddingClient,
+        QueryCompressingService queryCompressingService,
+        ObjectMapper objectMapper
     ) {
         this.vectorStoreRepository = vectorStoreRepository;
         this.vectorStore = vectorStore;
         this.chatClient = chatClient;
+        this.embeddingClient = embeddingClient;
         this.queryCompressingService = queryCompressingService;
+        this.objectMapper = objectMapper;
     }
 
     @Override
@@ -93,9 +112,6 @@ public class VectorStoreServiceImpl implements VectorStoreService {
                 if (vectorStore.getCodePostal() != null) {
                     existingVectorStore.setCodePostal(vectorStore.getCodePostal());
                 }
-                if (vectorStore.getDepartement() != null) {
-                    existingVectorStore.setDepartement(vectorStore.getDepartement());
-                }
                 if (vectorStore.getCodeDepartement() != null) {
                     existingVectorStore.setCodeDepartement(vectorStore.getCodeDepartement());
                 }
@@ -110,9 +126,6 @@ public class VectorStoreServiceImpl implements VectorStoreService {
                 }
                 if (vectorStore.getNbPieces() != null) {
                     existingVectorStore.setNbPieces(vectorStore.getNbPieces());
-                }
-                if (vectorStore.getDateVente() != null) {
-                    existingVectorStore.setDateVente(vectorStore.getDateVente());
                 }
                 if (vectorStore.getValeur() != null) {
                     existingVectorStore.setValeur(vectorStore.getValeur());
@@ -172,5 +185,55 @@ public class VectorStoreServiceImpl implements VectorStoreService {
             .overwrite(false)
             .embeddingIDs(uuids)
             .build();
+    }
+
+    public void addDVFs() throws IOException {
+        File csvFile = new File("chemin/vers/votre/fichier.csv");
+        CsvMapper mapper = new CsvMapper();
+        CsvSchema schema = CsvSchema.emptySchema().withHeader().withColumnSeparator('|'); // Utiliser les entêtes pour le mapping
+
+        MappingIterator<ValeurFonciere> it = mapper.readerFor(ValeurFonciere.class).with(schema).readValues(csvFile);
+
+        List<ValeurFonciere> valeurFoncieres = it.readAll();
+
+        EmbeddingResponse embeddingResponse =
+            this.embeddingClient.call(
+                    new EmbeddingRequest(
+                        valeurFoncieres
+                            .stream()
+                            .map(valeurFonciere -> {
+                                try {
+                                    return this.objectMapper.writeValueAsString(valeurFonciere);
+                                } catch (JsonProcessingException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            })
+                            .toList(),
+                        EMPTY
+                    )
+                );
+
+        List<VectorStore> vectorStores = new ArrayList<>();
+        for (int i = 0; i < valeurFoncieres.size(); i++) {
+            var vf = valeurFoncieres.get(i);
+            var floats = embeddingResponse.getResults().get(i).getOutput().stream().map(Double::floatValue).toList();
+            float[] embedding = new float[floats.size()];
+            for (i = 0; i < floats.size(); i++) {
+                embedding[i] = floats.get(i);
+            }
+            vectorStores.add(
+                VectorStore.builder()
+                    .codeDepartement(vf.getCodeDepartement())
+                    .codePostal(vf.getCodePostal())
+                    .commune(vf.getCommune())
+                    .content(this.objectMapper.writeValueAsString(vf))
+                    .codeDepartement(vf.getCodeDepartement())
+                    .superficieCarrez(vf.getSurfaceCarrezDuPremierLot())
+                    .superficieTerrain(vf.getSurfaceTerrain())
+                    .nbPieces(vf.getNombrePiecesPrincipales())
+                    .embedding(embedding)
+                    .build()
+            );
+        }
     }
 }
