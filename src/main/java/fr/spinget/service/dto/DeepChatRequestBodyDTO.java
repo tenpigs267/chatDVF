@@ -6,6 +6,6 @@ import lombok.Builder;
 @Builder
 public record DeepChatRequestBodyDTO(DeepChatRequestMessageDTO[] messages, Boolean stream) {
     public String getPrompt() {
-        return Arrays.stream(this.messages()).findFirst().orElseThrow().text();
+        return this.messages()[this.messages.length - 1].text();
     }
 }

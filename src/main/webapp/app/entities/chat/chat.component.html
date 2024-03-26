@@ -1,0 +1,20 @@
+<deep-chat
+  #deepChat
+  [speechToText]="{ webSpeech: { language: 'fr-FR' } }"
+  [request]="{
+    url: 'http://localhost:9000/api/vector-stores/chatdvf',
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'X-XSRF-TOKEN': this.getCSRF() }
+  }"
+  [messageStyles]="{
+    loading: {
+      bubble: { backgroundColor: '#3793ff', fontSize: '20px', color: 'white' }
+    },
+    html: { shared: { bubble: { backgroundColor: 'unset', padding: '0px' } } }
+  }"
+  [textInput]="{ placeholder: { text: 'Poses une question' } }"
+  [initialMessages]="[{ text: 'Bonjour, je suis Mustrum, en quoi puis-je vous aider?', role: 'ai' }]"
+  [requestBodyLimits]="{ maxMessages: 10 }"
+  style="width: 90%; margin: auto; height: 82vh; display: block"
+></deep-chat>

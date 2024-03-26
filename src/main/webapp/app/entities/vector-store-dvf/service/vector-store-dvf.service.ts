@@ -125,4 +125,8 @@ export class VectorStoreDvfService {
       body: res.body ? res.body.map(item => this.convertDateFromServer(item)) : null,
     });
   }
+
+  addDVFForDept(codeDpt: number) {
+    return this.http.get<RestVectorStoreDvf>(`${this.resourceUrl}/adddvf/${codeDpt}`, { observe: 'response' }).subscribe();
+  }
 }

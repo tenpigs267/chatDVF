@@ -19,9 +19,9 @@ public class QueryCompressingService {
         Identifie tous les détails, les termes et le contexte puis reformule le dernier message de l'utilisateur en un seul message contenant toutes les informations pertinentes pour lui répondre.
 
         Conversation:
-        {{chatMemory}}
+        {chatMemory}
 
-        message de l'utilisateur: {{query}}
+        message de l'utilisateur: {query}
         """;
 
     private final ChatClient chatClient;

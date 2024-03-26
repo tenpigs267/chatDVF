@@ -22,6 +22,7 @@ import routes from './app.routes';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { NgbDateDayjsAdapter } from './config/datepicker-adapter';
 import { AppPageTitleStrategy } from './app-page-title-strategy';
+import { CookieService } from 'ngx-cookie-service';
 
 const routerFeatures: Array<RouterFeatures> = [
   withComponentInputBinding(),
@@ -50,6 +51,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(ServiceWorkerModule.register('ngsw-worker.js', { enabled: false })),
     importProvidersFrom(HttpClientModule),
     Title,
+    CookieService,
     { provide: LOCALE_ID, useValue: 'fr' },
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,

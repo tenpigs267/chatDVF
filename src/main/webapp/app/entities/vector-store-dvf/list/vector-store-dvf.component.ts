@@ -128,4 +128,8 @@ export class VectorStoreDvfComponent implements OnInit {
       });
     });
   }
+
+  upload() {
+    this.vectorStoreService.addDVFForDept(84);
+  }
 }

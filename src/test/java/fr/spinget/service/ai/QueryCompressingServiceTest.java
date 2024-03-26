@@ -101,7 +101,7 @@ class QueryCompressingServiceTest {
 
         //When
         assertThrows(
-            NoSuchElementException.class,
+            ArrayIndexOutOfBoundsException.class,
             () -> queryCompressingService.compressUserPrompt(DeepChatRequestBodyDTO.builder().messages(deepChatRequestMessageDTOS).build())
         );
     }

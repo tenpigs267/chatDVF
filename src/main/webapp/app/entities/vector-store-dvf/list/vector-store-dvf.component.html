@@ -2,6 +2,11 @@
   <h2 id="page-heading" data-cy="VectorStoreHeading">
     <span>VectorStores</span>
 
+    <button class="btn btn-info me-2" (click)="upload()" [disabled]="isLoading">
+      <fa-icon icon="sync"></fa-icon>
+      <span>Alimenter</span>
+    </button>
+
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>

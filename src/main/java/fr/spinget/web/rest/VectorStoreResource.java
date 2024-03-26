@@ -6,6 +6,7 @@ import fr.spinget.service.VectorStoreService;
 import fr.spinget.service.dto.DeepChatRequestBodyDTO;
 import fr.spinget.service.dto.DeepChatTextResponseDTO;
 import fr.spinget.web.rest.errors.BadRequestAlertException;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -173,5 +174,10 @@ public class VectorStoreResource {
     @PostMapping("/chatdvf")
     public DeepChatTextResponseDTO chatDVF(@RequestBody DeepChatRequestBodyDTO requestBody) {
         return this.vectorStoreService.chat(requestBody);
+    }
+
+    @GetMapping("/adddvf/{dpt}")
+    public void addDVFForDept(@PathVariable("dpt") Integer codeDpt) throws IOException, InterruptedException {
+        this.vectorStoreService.addDVFs(codeDpt);
     }
 }

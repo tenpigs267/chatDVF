@@ -32,7 +32,7 @@ public class AIConfig {
     public ChatClient chatClient(OpenAiApi openAiApi) {
         return new OpenAiChatClient(
             openAiApi,
-            OpenAiChatOptions.builder().withModel("gpt-35-turbo").withTemperature(0.4f).withMaxTokens(200).build()
+            OpenAiChatOptions.builder().withModel("gpt-4-turbo-preview").build() //.withModel("gpt-3.5-turbo-16k-0613").withTemperature(0.4f).withMaxTokens(200).build()
         );
     }
 
@@ -41,14 +41,21 @@ public class AIConfig {
         return new OpenAiEmbeddingClient(
             openAiApi,
             MetadataMode.EMBED,
-            OpenAiEmbeddingOptions.builder().withModel("text-embedding-3-small").build(),
+            OpenAiEmbeddingOptions.builder().withModel("text-embedding-ada-002").withUser("user-6").build(),
             RetryTemplate.defaultInstance()
         );
     }
 
     @Bean
     org.springframework.ai.vectorstore.VectorStore pgVectorStore(EmbeddingClient embeddingClient, JdbcTemplate jdbcTemplate) {
-        return new PgVectorStore(jdbcTemplate, embeddingClient);
+        return new PgVectorStore(
+            jdbcTemplate,
+            embeddingClient,
+            1536,
+            PgVectorStore.PgDistanceType.COSINE_DISTANCE,
+            false,
+            PgVectorStore.PgIndexType.HNSW
+        );
     }
 
     @Autowired
